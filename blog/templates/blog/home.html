@@ -1,0 +1,53 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Olá, {{ usuario }}!</h1>
+<p>Data atual: {{ now|date:'d/m/Y H:i' }}</p>
+
+{% if is_logged_in %}
+    <div class="box">Bem-vindo de volta!</div>
+{% else %}
+    <div class="box">Faça login para continuar.</div>
+{% endif %}
+
+{% if role == 'admin' %}
+    <p><strong>Perfil:</strong> Administrador do sistema.</p>
+{% elif role == 'user' %}
+    <p><strong>Perfil:</strong> Usuário comum.</p>
+{% else %}
+    <p><strong>Perfil:</strong> Não identificado.</p>
+{% endif %}
+
+<h2>Lista de produtos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Preço (R$)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.preco }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2">Nenhum produto disponível.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Links das rotas</h2>
+<ul>
+    <li><a href="{% url 'home' %}">Ir para Home</a></li>
+    <li><a href="{% url 'contato' telefone_contato %}">Ir para Contato</a></li>
+    <li><a href="/blog/welcome/">/blog/welcome/</a></li>
+    <li><a href="/blog/eco/ola/">/blog/eco/ola/</a></li>
+    <li><a href="/blog/info/">/blog/info/</a></li>
+</ul>
+{% endblock %}

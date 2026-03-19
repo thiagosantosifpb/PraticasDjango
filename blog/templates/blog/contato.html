@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Contato{% endblock %}
+
+{% block content %}
+<h1>Página de Contato</h1>
+<p>Telefone recebido pela URL: <strong>{{ telefone }}</strong></p>
+<p>Gerado em: {{ now|date:'d/m/Y H:i' }}</p>
+<p><a href="{% url 'home' %}">Voltar para a home</a></p>
+{% endblock %}
