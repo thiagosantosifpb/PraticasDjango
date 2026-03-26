@@ -1,4 +1,4 @@
-# Projeto Django - Práticas 01, 02 e 03
+# Práticas Django - Práticas 01, 02 e 03
 
 Este projeto reúne, em sequência, o que foi solicitado nas três práticas:
 
