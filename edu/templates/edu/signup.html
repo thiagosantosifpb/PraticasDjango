@@ -1,0 +1,19 @@
+{% extends "edu/base.html" %}
+
+{% block title %}Cadastro de usuário{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Cadastro de usuário</h2>
+    <p class="muted">Crie uma conta para acessar as rotas protegidas do sistema.</p>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="actions">
+            <button type="submit" class="btn">Cadastrar</button>
+            <a href="{% url 'login' %}" class="btn secondary">Já tenho conta</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

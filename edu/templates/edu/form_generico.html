@@ -1,0 +1,23 @@
+{% extends "edu/base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<section class="card">
+    <div class="topbar">
+        <div>
+            <h2>{{ titulo }}</h2>
+            <p class="muted">Preencha os campos abaixo e salve o registro.</p>
+        </div>
+    </div>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="actions">
+            <button type="submit" class="btn">Salvar</button>
+            <a class="btn secondary" href="{% url url_cancelar %}">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

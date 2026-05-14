@@ -1,0 +1,86 @@
+{% extends "edu/base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<section class="card">
+    <div class="topbar">
+        <div>
+            <h2>{{ titulo }}</h2>
+            <p class="muted">Listagem com paginação e ações de gerenciamento.</p>
+        </div>
+        <div>
+            {% if create_url_name and pode_criar %}
+                <a class="btn" href="{% url create_url_name %}">Novo registro</a>
+            {% elif create_url_name and not user.is_authenticated %}
+                <a class="btn secondary" href="{% url 'login' %}">Entrar para gerenciar</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if rows %}
+        <table>
+            <thead>
+            <tr>
+                {% for label, attr in columns %}
+                    <th>{{ label }}</th>
+                {% endfor %}
+                {% if edit_url_name or delete_url_name %}
+                    <th>Ações</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in rows %}
+                <tr>
+                    {% for value in row.values %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                    {% if edit_url_name or delete_url_name %}
+                        <td>
+                            <div class="actions">
+                                {% if edit_url_name and pode_editar %}
+                                    <a class="btn secondary" href="{% url edit_url_name row.object.pk %}">Editar</a>
+                                {% endif %}
+                                {% if delete_url_name and pode_excluir %}
+                                    <a class="btn danger" href="{% url delete_url_name row.object.pk %}">Excluir</a>
+                                {% endif %}
+                                {% if not pode_editar and not pode_excluir %}
+                                    <span class="muted">Sem permissão</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty-state">Nenhum registro encontrado.</div>
+    {% endif %}
+
+    {% if page_obj.has_other_pages %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; Anterior</a></li>
+            {% else %}
+                <li><span class="muted">&laquo; Anterior</span></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li><span class="current">{{ num }}</span></li>
+                {% else %}
+                    <li><a href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">Próximo &raquo;</a></li>
+            {% else %}
+                <li><span class="muted">Próximo &raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</section>
+{% endblock %}
