@@ -1,4 +1,4 @@
-# Práticas Django — Práticas 01 a 08
+# Práticas Django — Práticas 01 a 09
 
 Projeto desenvolvido para a disciplina **Desenvolvimento Ágil com Ferramenta RAD**, reunindo as práticas de Django em uma aplicação simples para gerenciamento de livros.
 
@@ -301,3 +301,34 @@ edu/
 - O grupo de analistas pode ser criado manualmente pelo Admin ou automaticamente pelo comando `criar_grupo_analistas`.
 - Para cadastrar um livro, é necessário já existir ao menos uma editora cadastrada.
 - Para cadastrar uma publicação, é necessário já existir ao menos um livro e um autor cadastrados.
+
+## Prática 09 - API REST com Django REST Framework
+
+Nesta prática foi adicionada uma API RESTful usando Django REST Framework.
+
+### Recursos disponíveis na API
+
+- Autor
+- Editora
+
+### Endpoints
+
+| Recurso | Método | URL | Descrição |
+|---|---|---|---|
+| Autores | GET | `/api/autores/` | Lista autores |
+| Autores | POST | `/api/autores/` | Cria autor |
+| Autor | GET | `/api/autores/<id>/` | Detalha autor |
+| Autor | PUT/PATCH | `/api/autores/<id>/` | Atualiza autor |
+| Autor | DELETE | `/api/autores/<id>/` | Remove autor |
+| Editoras | GET | `/api/editoras/` | Lista editoras |
+| Editoras | POST | `/api/editoras/` | Cria editora |
+| Editora | GET | `/api/editoras/<id>/` | Detalha editora |
+| Editora | PUT/PATCH | `/api/editoras/<id>/` | Atualiza editora |
+| Editora | DELETE | `/api/editoras/<id>/` | Remove editora |
+
+### Executando
+
+```bash
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
